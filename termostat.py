@@ -11,6 +11,7 @@ def cool_engage(client):
         
     client.write_coil(16, True)
     result = client.read_coils(16)
+    print result
     print "Cooling relay state is " +  str(result.bits[0])
     client.close()
     return
@@ -18,6 +19,7 @@ def cool_engage(client):
 def cool_disengage(client):
     client.write_coil(16, False)
     result = client.read_coils(16)
+    print result
     print "Cooling relay state is " + str(result.bits[0])
     client.close()
     return
@@ -31,6 +33,7 @@ def heat_engage(client):
                                              
     client.write_coil(17, True)
     result = client.read_coils(17)
+    print result
     print "Heat relay state is " + str(result.bits[0])
     client.close()
     return
@@ -39,6 +42,7 @@ def heat_disengage(client):
 
     client.write_coil(17, False)
     result = client.read_coils(17)
+    print result
     print "Heat relay state is " +  str(result.bits[0])
     client.close()
     return
