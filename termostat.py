@@ -66,7 +66,7 @@ while z == True:
 while True:
     # Defining the ADAM module & checking if it is online
     try:
-        client = ModbusTcpClient('10.0.0.1')
+        client = ModbusTcpClient('10.0.0.3')
     except ValueError:
         print "Error connecting to ADAM device"
         break
