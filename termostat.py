@@ -3,10 +3,6 @@ from pymodbus.client.sync import ModbusTcpClient
 import requests
 
 
-#ADAM module
-
-
-
     
 
 #Cooling controls
@@ -61,11 +57,14 @@ while z == True:
         print "Temperature normally consist of numbers, not letters.....Try again please: "
 
 
+#Infinite loop
 
 while True:
-    client = ModbusTcpClient('192.168.10.100')
-    read_temp = requests.get('http://192.168.10.172/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
-    print read_temp
+    # Defining the ADAM module
+    client = ModbusTcpClient('10.0.0.1')
+    #Getting the temperature from the sensor
+    read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
+    print "Current temperature is " read_temp
     if read_temp <= set_temp - 2.0:
         heat_engage(client)
         cool_disengage(client)
@@ -77,6 +76,6 @@ while True:
 
     else:
         print "Stabilizing temperature"
-    time.sleep(1)
+    time.sleep(5)
 
 
