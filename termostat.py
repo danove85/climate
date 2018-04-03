@@ -8,28 +8,27 @@ import requests
 #Cooling controls
 
 def cool_engage(client):
-        
     try:
         client.write_coil(16, True)
         result = client.read_coils(16)
-    #print result
-    #print "Cooling relay state is " +  str(result.bits[0])
+        if result.bits[0] == True:
+            print "Cooling relay is active"
         client.close()
-        return result
     except:
-        print "Error connecting to ADAM"
+        print " Unable to connect to ADAM"    
+    return
         
 
 def cool_disengage(client):
     try:
         client.write_coil(16, False)
         result = client.read_coils(16)
-    #print result
-    #print "Cooling relay state is " + str(result.bits[0])
+        if result.bits[0] == False:
+            print "Cooling relay is not active"
         client.close()
-        return result
     except:
-        print "Error connecting to ADAM"
+        print " Unable to connect to ADAM"    
+    return
         
 
 
@@ -37,32 +36,30 @@ def cool_disengage(client):
 #Heating controls
 
 def heat_engage(client):
-                                             
     try:
         client.write_coil(17, True)
         result = client.read_coils(17)
-    #print result
-    #print "Heat relay state is " + str(result.bits[0])
+        if result.bits[0] == True:
+            print "Heating relay is active"
         client.close()
-        return result
     except:
-        print "Error connecting to ADAM"
+        print " Unable to connect to ADAM"    
+    return
         
 
 
 
 
 def heat_disengage(client):
-
     try:
         client.write_coil(17, False)
         result = client.read_coils(17)
-    #print result
-    #print "Heat relay state is " +  str(result.bits[0])
+        if result.bits[0] == False:
+            print "Heating relay is not active"
         client.close()
-        return result
     except:
-        print "Error connecting to ADAM"
+        print " Unable to connect to ADAM"    
+    return
         
 
 #Main program
@@ -85,21 +82,25 @@ while True:
     client = ModbusTcpClient('10.0.0.1')
     
 
-
     #Getting the temperature from the sensor
-    read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
-    print "Current temperature is %f " % (read_temp)
-    if read_temp <= set_temp - 2.0:
-        heat_engage(client)
-        cool_disengage(client)
-        print "Heating"
-    elif read_temp >= set_temp + 2.0:
-        heat_disengage(client)
-        cool_engage(client)
-        print "Cooling"
+    try:
+        read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
+        print "Current temperature is %f " % (read_temp)
+        if read_temp <= set_temp - 2.0:
+            heat_engage(client)
+            cool_disengage(client)
+            
+        elif read_temp >= set_temp + 2.0:
+            heat_disengage(client)
+            cool_engage(client)
 
-    else:
+        else:
         print "Stabilizing temperature"
+            
+    except:
+        print "Unable to get temperature from temp sensor"
+
+    
     time.sleep(5)
 
 
