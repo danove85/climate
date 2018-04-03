@@ -82,18 +82,23 @@ while True:
     client = ModbusTcpClient('10.0.0.1')
     
 
-    #Getting the temperature from the sensor
+    
     try:
+        #Getting the temperature from the sensor
         read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
         print "Current temperature is %f " % (read_temp)
+        
+        #If temperature is lower than requested temperature
         if read_temp <= set_temp - 2.0:
             heat_engage(client)
             cool_disengage(client)
-            
+        
+        #If temperature is higher than requested temperature    
         elif read_temp >= set_temp + 2.0:
             heat_disengage(client)
             cool_engage(client)
 
+        #If temperature is  within +- 2 degrees of requested temperature
         else:
             print "Stabilizing temperature"
             
