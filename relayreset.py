@@ -1,18 +1,25 @@
 from pymodbus.client.sync import ModbusTcpClient
 
 def cool_disengage(client):
-    client.write_coil(16, False)
-    result = client.read_coils(16)
-    print "Cooling relay state is " + str(result.bits[0])
-    client.close()
+    try:
+        client.write_coil(16, False)
+        result = client.read_coils(16)
+        if result.bits[0] == True:
+            print "Cooling relay is not active"
+        client.close()
+    except:
+        print " Unable to connect to ADAM"    
     return
 
 def heat_disengage(client):
-
-    client.write_coil(17, False)
-    result = client.read_coils(17)
-    print "Heat relay state is " +  str(result.bits[0])
-    client.close()
+    try:
+        client.write_coil(17, False)
+        result = client.read_coils(17)
+        if result.bits[0] == True:
+            print "Heating relay is not active"
+        client.close()
+    except:
+        print " Unable to connect to ADAM"
     return 
 
 
