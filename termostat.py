@@ -11,18 +11,18 @@ def cool_engage(client):
         
     client.write_coil(16, True)
     result = client.read_coils(16)
-    print result
-    print "Cooling relay state is " +  str(result.bits[0])
+    #print result
+    #print "Cooling relay state is " +  str(result.bits[0])
     client.close()
-    return
+    return result
 
 def cool_disengage(client):
     client.write_coil(16, False)
     result = client.read_coils(16)
-    print result
-    print "Cooling relay state is " + str(result.bits[0])
+    #print result
+    #print "Cooling relay state is " + str(result.bits[0])
     client.close()
-    return
+    return result
 
 
 
@@ -33,19 +33,19 @@ def heat_engage(client):
                                              
     client.write_coil(17, True)
     result = client.read_coils(17)
-    print result
-    print "Heat relay state is " + str(result.bits[0])
+    #print result
+    #print "Heat relay state is " + str(result.bits[0])
     client.close()
-    return
+    return result
 
 def heat_disengage(client):
 
     client.write_coil(17, False)
     result = client.read_coils(17)
-    print result
-    print "Heat relay state is " +  str(result.bits[0])
+    #print result
+    #print "Heat relay state is " +  str(result.bits[0])
     client.close()
-    return
+    return result
 
 
 #Main program
@@ -64,8 +64,14 @@ while z == True:
 #Infinite loop
 
 while True:
-    # Defining the ADAM module
-    client = ModbusTcpClient('10.0.0.1')
+    # Defining the ADAM module & checking if it is online
+    try:
+        client = ModbusTcpClient('10.0.0.1')
+    except ValueError:
+        print "Error connecting to ADAM device"
+        break
+
+
     #Getting the temperature from the sensor
     read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
     print "Current temperature is %f " % (read_temp)
