@@ -95,7 +95,7 @@ while True:
             cool_engage(client)
 
         else:
-        print "Stabilizing temperature"
+            print "Stabilizing temperature"
             
     except:
         print "Unable to get temperature from temp sensor"
