@@ -82,7 +82,7 @@ while z == True:
 
 while True:
     # Defining the ADAM module
-        client = ModbusTcpClient('10.0.0.1')
+    client = ModbusTcpClient('10.0.0.1')
     
 
 
