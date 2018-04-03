@@ -18,7 +18,7 @@ def cool_engage(client):
         return result
     except:
         print "Error connecting to ADAM"
-        break
+        
 
 def cool_disengage(client):
     try:
@@ -30,7 +30,7 @@ def cool_disengage(client):
         return result
     except:
         print "Error connecting to ADAM"
-        break
+        
 
 
 
@@ -47,7 +47,7 @@ def heat_engage(client):
         return result
     except:
         print "Error connecting to ADAM"
-        break
+        
 
 
 
@@ -63,7 +63,7 @@ def heat_disengage(client):
         return result
     except:
         print "Error connecting to ADAM"
-        break
+        
 
 #Main program
 
