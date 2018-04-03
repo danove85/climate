@@ -100,6 +100,8 @@ while True:
 
         #If temperature is  within +- 2 degrees of requested temperature
         else:
+            cool_disengage(client)
+            heat_disengage(client)
             print "Stabilizing temperature"
             
     except:
