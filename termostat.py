@@ -70,14 +70,11 @@ while z == True:
     try:
         set_temp = raw_input('Please enter desired temperature. Range is -10 to +30 degrees Celsius:')
         set_temp = float(set_temp)
-        if set_temp > 1.0:
+        if set_temp > -11.0 and set_temp <31:
             z = 0
-        elif set_temp <31.0:
-            z = 0
-        else:
-            z = 1
+        
     except ValueError:
-        print "Please enter a number between -10 and +30 degrees celsius: "
+        print "Only numbers and keep within the given range. "
 
 
 #Infinite loop
