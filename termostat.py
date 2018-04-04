@@ -70,9 +70,9 @@ while z == True:
     try:
         set_temp = raw_input('Please enter desired temperature. Range is -10 to +30 degrees Celsius:')
         set_temp = float(set_temp)
-        if set_temp > -11:
+        if set_temp > 1.0:
             z = 0
-        elif set_temp <31:
+        elif set_temp <31.0:
             z = 0
         else:
             z = 1
