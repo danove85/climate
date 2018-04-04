@@ -73,8 +73,10 @@ while z == True:
         if set_temp > -11.0 and set_temp <31:
             z = 0
         
+        else:
+            print "Out of range"
     except ValueError:
-        print "Only numbers and keep within the given range. "
+        print "Only numbers please."
 
 
 #Infinite loop
