@@ -3,7 +3,7 @@ from pymodbus.client.sync import ModbusTcpClient
 import requests
 import logging
 
-logging.basicConfig(filename='temperature.log', level=logging.INFO, format='%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M:%S: Temp')
+logging.basicConfig(filename='temperature.log', level=logging.INFO, format='%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M:%S:Temp is')
     
 
 #Cooling controls
