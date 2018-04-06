@@ -8,7 +8,7 @@ from logging.handlers import RotatingFileHandler
 #logger = logging.getLogger('my_logger')
 #handler = RotatingFileHandler('temperature.log', maxBytes=10000, backupCount=10)
 #logger.addHandler(handler)    
-formatter = logging.Formatter('%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M:%S:Temp is')
+formatter = logging.Formatter('%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M:%S:')
 
 #Logging function
 
@@ -34,9 +34,9 @@ def cool_engage(client):
             print "Cooling relay is active"
         client.close()
     except:
-        print " Unable to connect to ADAM"
+        print "Unable to connect to ADAM"
         adam_logger = setup_logger('adam_except', 'exceptions.log')
-        adam_logger.warning(result)    
+        adam_logger.warning("Unable to connect to ADAM")    
     return
         
 
@@ -49,9 +49,9 @@ def cool_disengage(client):
             print "Cooling relay is not active"
         client.close()
     except:
-        print " Unable to connect to ADAM"
+        print "Unable to connect to ADAM"
         adam_logger = setup_logger('adam_except', 'exceptions.log')
-        adam_logger.warning(result)    
+        adam_logger.warning("Unable to connect to ADAM")    
     return
         
 
@@ -68,9 +68,9 @@ def heat_engage(client):
             print "Heating relay is active"
         client.close()
     except:
-        print " Unable to connect to ADAM"
+        print "Unable to connect to ADAM"
         adam_logger = setup_logger('adam_except', 'exceptions.log')
-        adam_logger.warning(result)    
+        adam_logger.warning("Unable to connect to ADAM")    
     return
         
 
@@ -86,9 +86,9 @@ def heat_disengage(client):
             print "Heating relay is not active"
         client.close()
     except:
-        print " Unable to connect to ADAM"
+        print "Unable to connect to ADAM"
         adam_logger = setup_logger('adam_except', 'exceptions.log')
-        adam_logger.warning(result)    
+        adam_logger.warning("Unable to connect to ADAM")    
     return
         
 
@@ -108,7 +108,7 @@ while z == True:
     except ValueError:
         print "Only numbers please."
         input_logger = setup_logger('incoming_except', 'exceptions.log')
-        input_logger.warning(set_temp)
+        input_logger.warning('Input error %s' % set_temp) 
 
 
 #Infinite loop
@@ -124,7 +124,7 @@ while True:
         read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
         print "Current temperature is: %f C, Set temperature is: %f C" % (read_temp, set_temp)
         temp_logger = setup_logger('temp', 'temperature.log')
-        temp_logger.info(read_temp)
+        temp_logger.info('Temperature is %f' % read_temp)
         
         #If temperature is lower than requested temperature
         if read_temp <= set_temp - 2.0:
@@ -145,7 +145,7 @@ while True:
     except:
         print "Unable to get temperature from temp sensor"
         get_temp_logger = setup_logger('get_temp_except', 'exceptions.log')
-        get_temp_logger.warning(read_temp)
+        get_temp_logger.warning("Unable to get temperature from temp sensor")
 
     
     time.sleep(5)
