@@ -10,7 +10,7 @@ formatter = logging.Formatter('%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M
 #Logging function
 
 def setup_logger(name, log_file, level=logging.INFO):
-    handler = logging.RotatingFileHandler(log_file, maxBytes=10000, backupCount=10)
+    handler = logging.RotatingFileHandler('temperature.log', maxBytes=10000, backupCount=10)
     handler.setFormatter(formatter)
 
     logger = logging.getLogger(name)
