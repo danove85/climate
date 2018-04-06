@@ -4,10 +4,20 @@ import requests
 import logging
 from logging.handlers import RotatingFileHandler
 
-logging.basicConfig(filename='temperature.log', level=logging.INFO, format='%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M:%S:Temp is')
-logger = logging.getLogger('my_logger')
-handler = RotatingFileHandler('temperature.log', maxBytes=10000, backupCount=10)
-logger.addHandler(handler)    
+logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M:%S:Temp is')
+#logger = logging.getLogger('my_logger')
+#handler = RotatingFileHandler('temperature.log', maxBytes=10000, backupCount=10)
+#logger.addHandler(handler)    
+
+
+#Logging function
+
+def setup_logger(name, log_file):
+    handler = logging.RotatingFileHandler(log_file, maxBytes=10000, backupCount=10)
+    logger = logging.getLogger(name)
+    logger.addHandler(handler)
+
+    return logger
 
 #Cooling controls
 
@@ -99,7 +109,8 @@ while True:
         #Getting the temperature from the sensor
         read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
         print "Current temperature is: %f C, Set temperature is: %f C" % (read_temp, set_temp)
-        logger.info(read_temp)
+        temp_logger = setup_logger('temp_logger', 'temperature.log')
+        temp_logger.info(read_temp)
         
         #If temperature is lower than requested temperature
         if read_temp <= set_temp - 2.0:
