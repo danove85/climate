@@ -8,7 +8,7 @@ from logging.handlers import RotatingFileHandler
 #logger = logging.getLogger('my_logger')
 #handler = RotatingFileHandler('temperature.log', maxBytes=10000, backupCount=10)
 #logger.addHandler(handler)    
-formatter = logging.Formatter('%(asctime)s:%(message)s')#, datefmt='%d/%m/%Y %H:%M:%S:Temp is')
+formatter = logging.Formatter('%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M:%S:Temp is')
 
 #Logging function
 
