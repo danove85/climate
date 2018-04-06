@@ -98,7 +98,7 @@ while True:
     try:
         #Getting the temperature from the sensor
         read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
-        print "Current temperature is %f " % (read_temp)
+        print "Current temperature is: %f C, Set temperature is %f: " % (read_temp, set_temp)
         logger.info(read_temp)
         
         #If temperature is lower than requested temperature
