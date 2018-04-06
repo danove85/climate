@@ -13,9 +13,10 @@ logger.addHandler(handler)
 
 def cool_engage(client):
     try:
-        client.write_coil(16, True)
+        
         result = client.read_coils(16)
-        if result.bits[0] == True:
+        if result.bits[0] != True:
+            client.write_coil(16, True)
             print "Cooling relay is active"
         client.close()
     except:
@@ -25,9 +26,10 @@ def cool_engage(client):
 
 def cool_disengage(client):
     try:
-        client.write_coil(16, False)
+        
         result = client.read_coils(16)
-        if result.bits[0] == False:
+        if result.bits[0] != False:
+            client.write_coil(16, False)
             print "Cooling relay is not active"
         client.close()
     except:
@@ -41,9 +43,10 @@ def cool_disengage(client):
 
 def heat_engage(client):
     try:
-        client.write_coil(17, True)
+        
         result = client.read_coils(17)
         if result.bits[0] == True:
+            client.write_coil(17, True)
             print "Heating relay is active"
         client.close()
     except:
@@ -56,9 +59,10 @@ def heat_engage(client):
 
 def heat_disengage(client):
     try:
-        client.write_coil(17, False)
+        
         result = client.read_coils(17)
         if result.bits[0] == False:
+            client.write_coil(17, False)
             print "Heating relay is not active"
         client.close()
     except:
@@ -69,7 +73,7 @@ def heat_disengage(client):
 #Main program
 
 z = 1
-# Taking input and making sure it is a float
+# Taking input, making sure it is a float and setting the range of input
 while z == True:
     try:
         set_temp = raw_input('Please enter desired temperature. Range is -10 to +30 degrees Celsius:')
