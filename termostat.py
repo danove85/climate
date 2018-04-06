@@ -34,7 +34,9 @@ def cool_engage(client):
             print "Cooling relay is active"
         client.close()
     except:
-        print " Unable to connect to ADAM"    
+        print " Unable to connect to ADAM"
+        adam_logger = setup_logger('adam_except', 'exceptions.log')
+        adam_logger.warning(result)    
     return
         
 
@@ -47,7 +49,9 @@ def cool_disengage(client):
             print "Cooling relay is not active"
         client.close()
     except:
-        print " Unable to connect to ADAM"    
+        print " Unable to connect to ADAM"
+        adam_logger = setup_logger('adam_except', 'exceptions.log')
+        adam_logger.warning(result)    
     return
         
 
@@ -64,7 +68,9 @@ def heat_engage(client):
             print "Heating relay is active"
         client.close()
     except:
-        print " Unable to connect to ADAM"    
+        print " Unable to connect to ADAM"
+        adam_logger = setup_logger('adam_except', 'exceptions.log')
+        adam_logger.warning(result)    
     return
         
 
@@ -80,7 +86,9 @@ def heat_disengage(client):
             print "Heating relay is not active"
         client.close()
     except:
-        print " Unable to connect to ADAM"    
+        print " Unable to connect to ADAM"
+        adam_logger = setup_logger('adam_except', 'exceptions.log')
+        adam_logger.warning(result)    
     return
         
 
@@ -99,6 +107,8 @@ while z == True:
             print "Out of range"
     except ValueError:
         print "Only numbers please."
+        input_logger = setup_logger('incoming_except', 'exceptions.log')
+        input_logger.warning(set_temp)
 
 
 #Infinite loop
@@ -134,6 +144,8 @@ while True:
             
     except:
         print "Unable to get temperature from temp sensor"
+        get_temp_logger = setup_logger('get_temp_except', 'exceptions.log')
+        get_temp_logger.warning(read_temp)
 
     
     time.sleep(5)
