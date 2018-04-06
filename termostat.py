@@ -12,9 +12,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(message)s', datefm
 
 #Logging function
 
-def setup_logger(name, log_file):
+def setup_logger(name, log_file, level=logging.INFO):
     handler = logging.RotatingFileHandler(log_file, maxBytes=10000, backupCount=10)
     logger = logging.getLogger(name)
+    logger.setLevel(level)
     logger.addHandler(handler)
 
     return logger
@@ -109,7 +110,7 @@ while True:
         #Getting the temperature from the sensor
         read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
         print "Current temperature is: %f C, Set temperature is: %f C" % (read_temp, set_temp)
-        temp_logger = setup_logger('temp_logger', 'temperature.log')
+        temp_logger = setup_logger('temp', 'temperature.log')
         temp_logger.info(read_temp)
         
         #If temperature is lower than requested temperature
