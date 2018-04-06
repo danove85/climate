@@ -6,7 +6,7 @@ from logging.handlers import RotatingFileHandler
 
 logging.basicConfig(filename='temperature.log', level=logging.INFO, format='%(asctime)s:%(message)s', datefmt='%d/%m/%Y %H:%M:%S:Temp is')
 logger = logging.getLogger('my_logger')
-handler = RotatingFileHandler('temperature.log', maxBytes=100, backupCount=10)
+handler = RotatingFileHandler('temperature.log', maxBytes=10, backupCount=4)
 logger.addHandler(handler)    
 
 #Cooling controls
