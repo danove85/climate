@@ -45,7 +45,7 @@ def heat_engage(client):
     try:
         
         result = client.read_coils(17)
-        if result.bits[0] == True:
+        if result.bits[0] != True:
             client.write_coil(17, True)
             print "Heating relay is active"
         client.close()
@@ -61,7 +61,7 @@ def heat_disengage(client):
     try:
         
         result = client.read_coils(17)
-        if result.bits[0] == False:
+        if result.bits[0] != False:
             client.write_coil(17, False)
             print "Heating relay is not active"
         client.close()
