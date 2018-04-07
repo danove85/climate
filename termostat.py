@@ -15,8 +15,6 @@ formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s', datefmt='%d/%m
 
 def setup_logger(name, log_file, level=logging.INFO):
 
-    
-
     logger = logging.getLogger(name)
     if not logger.handlers:
         handler = RotatingFileHandler(log_file, maxBytes=10000, backupCount=10)
@@ -28,7 +26,7 @@ def setup_logger(name, log_file, level=logging.INFO):
 
 def relay_disengager():
     client.write_coil(16, False)
-    client.write_coil(17 False)
+    client.write_coil(17, False)
     client.close()
 
 
