@@ -1,3 +1,5 @@
+import sys
+import signal
 import time
 from pymodbus.client.sync import ModbusTcpClient
 import requests
@@ -24,7 +26,20 @@ def setup_logger(name, log_file, level=logging.INFO):
 
     return logger
 
+#Used to catch SIGHUP signal if the user simply closes the terminal window
+
+def sighup_handler(signal, frame):
+
+    client.write_coil(16, False)
+    client.write_coil(17, False)
+    client.close()
+    sys.exit(0)
+
+
+#Used to catch KeyBoardInterrupt and turn off the relays
+
 def relay_disengager():
+    
     client.write_coil(16, False)
     client.write_coil(17, False)
     client.close()
@@ -162,7 +177,7 @@ while True:
         get_temp_logger = setup_logger('get_temp_except', 'exceptions.log')
         get_temp_logger.error("Unable to get temperature from temp sensor")
 
-    
+    signal.signal(signal.SIGHUP, sighup_handler)
     atexit.register(relay_disengager)
     time.sleep(5)
 
