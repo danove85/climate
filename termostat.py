@@ -3,6 +3,7 @@ from pymodbus.client.sync import ModbusTcpClient
 import requests
 import logging
 from logging.handlers import RotatingFileHandler
+import atexit
 
 
 #Setting the format of log output
@@ -24,6 +25,12 @@ def setup_logger(name, log_file, level=logging.INFO):
         logger.addHandler(handler)
 
     return logger
+
+def relay_disengager():
+    client.write_coil(16, False)
+    client.write_coil(17 False)
+    client.close()
+
 
 #Cooling controls
 
@@ -158,6 +165,7 @@ while True:
         get_temp_logger.error("Unable to get temperature from temp sensor")
 
     
+    atexit.register(relay_disengager)
     time.sleep(5)
 
 
