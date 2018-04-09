@@ -129,6 +129,7 @@ while z == True:
     try:
         set_temp = raw_input('Please enter desired temperature. Range is -10 to +30 degrees Celsius:')
         set_temp = float(set_temp)
+        set_temp = round(set_temp, 1)
         if set_temp > -11.0 and set_temp <31:
             z = 0
         
@@ -151,7 +152,7 @@ while True:
     try:
         #Getting the temperature from the sensor
         read_temp = requests.get('http://10.0.0.2/statusjsn.js?components=18179').json()['sensor_values'][0]['values'][0][0]['v']
-        
+        read_temp = round(read_temp, 1)
         print "Current temperature is: %f C, Set temperature is: %f C" % (read_temp, set_temp)
         temp_logger = setup_logger('temperature_is', 'temperature.log')
         temp_logger.info(read_temp)
