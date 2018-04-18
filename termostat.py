@@ -24,7 +24,7 @@ def setup_logger(name, log_file, level=logging.INFO):
 
     logger = logging.getLogger(name)
     if not logger.handlers:
-        handler = RotatingFileHandler(log_file, maxBytes=20000, backupCount=10)
+        handler = RotatingFileHandler(log_file, maxBytes=100000, backupCount=10)
         handler.setFormatter(formatter)
         logger.setLevel(level)
         logger.addHandler(handler)
